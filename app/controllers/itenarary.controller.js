@@ -1,6 +1,7 @@
 const db = require("../models");
 const Itenarary = db.itenarary;
 const Op = db.Sequelize.Op;
+const sequelize = db.sequelize;
 
 // Create and Save a new itenarary
 exports.create = (req, res) => {
@@ -75,14 +76,33 @@ exports.findAll = (req, res) => {
 
 exports.search = (req, res) => {
   const key = req.query.key;
-  var condition = key
-  ? {
+  var condition = null;
+  if(key) {
+    condition = {
       [Op.or]: [
         { title: { [Op.like]: `%${key}%` } },
         { description: { [Op.like]: `%${key}%` } },
       ],
     }
-  : null;
+  } else {
+    const { from, to, start, end } = req.query;
+    const whereCondition = {
+      [Op.and]: [],
+    };
+    if (start) {
+      whereCondition[Op.and].push({ start_date: sequelize.where(sequelize.fn('DATE', sequelize.col('start_date')), start) });
+    }
+    if (end) {
+      whereCondition[Op.and].push({ end_date: sequelize.where(sequelize.fn('DATE', sequelize.col('end_date')), end) });
+    }
+    if (from) {
+      whereCondition[Op.and].push({ from: { [Op.like]: `%${from}%` } });
+    }
+    if (to) {
+      whereCondition[Op.and].push({ to: { [Op.like]: `%${to}%` } });
+    }
+    condition = whereCondition;
+  }
   Itenarary.findAll({ where: condition })
     .then((data) => {
       res.send(data);
