@@ -84,7 +84,7 @@ exports.findAll = (req, res) => {
     }
     condition = whereCondition;
   }
-  Itenarary.findAll({ where: whereCondition })
+  Itenarary.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
