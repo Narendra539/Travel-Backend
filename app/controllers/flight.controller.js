@@ -35,7 +35,6 @@ exports.create = (req, res) => {
   const flight = {
     flight_name: req.body.flight_name,
     flight_number: req.body.flight_number,
-    rating: req.body.rating,
     arrival_time: req.body.arrival_time,
     depature_time: req.body.depature_time,
     arrival_place: req.body.arrival_place,

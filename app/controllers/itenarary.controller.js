@@ -2,6 +2,7 @@ const db = require("../models");
 const Itenarary = db.itenarary;
 const Op = db.Sequelize.Op;
 const sequelize = db.sequelize;
+const Day = db.day;
 
 // Create and Save a new itenarary
 exports.create = (req, res) => {
@@ -37,6 +38,8 @@ exports.create = (req, res) => {
     end_date: req.body.end_date,
     rating: req.body.rating,
     categoryId: req.body.category_id,
+    from: req.body.from,
+    to: req.body.to
   };
   // Save itenarary in the database
   Itenarary.create(itenarary)
@@ -53,16 +56,35 @@ exports.create = (req, res) => {
 
 // Retrieve all itenararies from the database.
 exports.findAll = (req, res) => {
-  const itenararyId = req.query.itenararyId;
-  var condition = itenararyId
-    ? {
-        id: {
-          [Op.like]: `%${itenararyId}%`,
-        },
-      }
-    : null;
-
-  Itenarary.findAll({ where: condition })
+  const key = req.query.key;
+  var condition = null;
+  if(key) {
+    condition = {
+      [Op.or]: [
+        { title: { [Op.like]: `%${key}%` } },
+        { description: { [Op.like]: `%${key}%` } },
+      ],
+    }
+  } else {
+    const { from, to, start, end } = req.query;
+    const whereCondition = {
+      [Op.and]: [],
+    };
+    if (start) {
+      whereCondition[Op.and].push({ start_date: sequelize.where(sequelize.fn('DATE', sequelize.col('start_date')), start) });
+    }
+    if (end) {
+      whereCondition[Op.and].push({ end_date: sequelize.where(sequelize.fn('DATE', sequelize.col('end_date')), end) });
+    }
+    if (from) {
+      whereCondition[Op.and].push({ from: { [Op.like]: `%${from}%` } });
+    }
+    if (to) {
+      whereCondition[Op.and].push({ to: { [Op.like]: `%${to}%` } });
+    }
+    condition = whereCondition;
+  }
+  Itenarary.findAll({ where: whereCondition })
     .then((data) => {
       res.send(data);
     })
@@ -139,7 +161,7 @@ exports.findItenararyByCategory = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Itenarary.findByPk(id)
+  Itenarary.findByPk(id,{ include: [{ model: Day, as: 'days' }] })
     .then((data) => {
         if (data) {
             res.json(data);
