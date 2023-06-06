@@ -29,11 +29,11 @@ module.exports =  (sequelize, Sequelize) => {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        from: {
+        place_from: {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        to: {
+        place_to: {
           type: Sequelize.STRING,
           allowNull: true,
         }
