@@ -38,8 +38,8 @@ exports.create = (req, res) => {
     end_date: req.body.end_date,
     rating: req.body.rating,
     categoryId: req.body.category_id,
-    from: req.body.from,
-    to: req.body.to
+    place_from: req.body.from,
+    place_to: req.body.to
   };
   // Save itenarary in the database
   Itenarary.create(itenarary)
@@ -77,10 +77,10 @@ exports.findAll = (req, res) => {
       whereCondition[Op.and].push({ end_date: sequelize.where(sequelize.fn('DATE', sequelize.col('end_date')), end) });
     }
     if (from) {
-      whereCondition[Op.and].push({ from: { [Op.like]: `%${from}%` } });
+      whereCondition[Op.and].push({ place_from: { [Op.like]: `%${from}%` } });
     }
     if (to) {
-      whereCondition[Op.and].push({ to: { [Op.like]: `%${to}%` } });
+      whereCondition[Op.and].push({ place_to: { [Op.like]: `%${to}%` } });
     }
     condition = whereCondition;
   }
@@ -118,10 +118,10 @@ exports.search = (req, res) => {
       whereCondition[Op.and].push({ end_date: sequelize.where(sequelize.fn('DATE', sequelize.col('end_date')), end) });
     }
     if (from) {
-      whereCondition[Op.and].push({ from: { [Op.like]: `%${from}%` } });
+      whereCondition[Op.and].push({ place_from: { [Op.like]: `%${from}%` } });
     }
     if (to) {
-      whereCondition[Op.and].push({ to: { [Op.like]: `%${to}%` } });
+      whereCondition[Op.and].push({ place_to: { [Op.like]: `%${to}%` } });
     }
     condition = whereCondition;
   }
