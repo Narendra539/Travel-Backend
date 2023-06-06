@@ -10,6 +10,7 @@ module.exports = (app) => {
   router.get("/places/", Place.findAll);
 
   router.get("/places/search", Place.search);
+  router.get("/places/most-visited/", Place.getMostVisitedPlaces)
 
   // Retrieve a single place with placeId
   router.get("/places/:id", Place.findOne);
@@ -22,8 +23,6 @@ module.exports = (app) => {
 
   // Create a new place
   router.delete("/places/", Place.deleteAll);
-
-  router.get("/places/most-visited/", Place.getMostVisitedPlaces)
 
   app.use(router);
 };
