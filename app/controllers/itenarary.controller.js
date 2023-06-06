@@ -161,7 +161,7 @@ exports.findItenararyByCategory = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Itenarary.findByPk(id,{ include: [{ model: Day, as: 'days' }] })
+  Itenarary.findByPk(id,{ include: [{ model: Day, as: 'day' }] })
     .then((data) => {
         if (data) {
             res.json(data);
