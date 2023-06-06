@@ -10,6 +10,8 @@ module.exports = (app) => {
   router.get("/hotels/", Hotel.findAll);
 
   router.get("/hotels/search", Hotel.search);
+  router.get("/hotels/famous/", Hotel.getTopRatedHotels);
+
 
   // Retrieve a single hotel with hotelId
   router.get("/hotels/:id", Hotel.findOne);
@@ -22,8 +24,6 @@ module.exports = (app) => {
 
   // Create a new hotel
   router.delete("/hotels/",  Hotel.deleteAll);
-
-  router.get("/hotels/famous/", Hotel.getTopRatedHotels);
 
   app.use(router);
 };
