@@ -35,7 +35,8 @@ exports.create = (req, res) => {
     checkin_date: req.body.checkin_date,
     checkout_date: req.body.checkout_date,
     image_url: req.body.image_url,
-    itenararyId: req.body.itenarary_id
+    itenararyId: req.body.itenarary_id,
+    rating: req.body.rating
   };
   // Save hotel in the database
   Hotel.create(hotel)
@@ -177,6 +178,22 @@ exports.deleteAll = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while removing all hotels.",
+      });
+    });
+};
+
+exports.getTopRatedHotels = (req, res) => {
+  Hotel.findAll({
+    limit: 5,
+    order: [['rating', 'DESC']],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving top-rated hotels.",
       });
     });
 };

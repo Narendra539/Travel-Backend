@@ -30,7 +30,8 @@ exports.create = (req, res) => {
     rating: req.body.rating,
     image_url: req.body.image_url,
     location: req.body.location,
-    itenararyId: req.body.itenarary_id
+    itenararyId: req.body.itenarary_id,
+    visited_by: req.body.visited_by
   };
   // Save place in the database
   Place.create(place)
@@ -172,6 +173,22 @@ exports.deleteAll = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while removing all places.",
+      });
+    });
+};
+
+
+exports.getMostVisitedPlaces = (req, res) => {
+  Place.findAll({
+    order: [['visited_by', 'DESC']],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving most visited places.",
       });
     });
 };
