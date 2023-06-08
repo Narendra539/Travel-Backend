@@ -188,7 +188,7 @@ exports.getAllDaysInDetail = async (req,res) => {
   const { itenararyId, dayId } = req.params;
   try {
     const day = await Day.findOne({
-      where: { id: dayId, ItineraryId: itenararyId },
+      where: { id: dayId, itenararyId: itenararyId },
       include: [Flight, Hotel, Place],
     });
 
