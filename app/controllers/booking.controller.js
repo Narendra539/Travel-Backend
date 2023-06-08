@@ -114,13 +114,16 @@ exports.findByUserId = (req, res) => {
   const id = req.params.id;
   var condition = id
   ? { userId: id }: null;
-  Booking.findAll({ where: condition })
+  Booking.findAll({ 
+    where: condition,
+    include: [{ model: BookingDetails, attributes: ['firstName', 'lastName', 'mobile'] }] 
+  })
     .then((data) => {
-        if (data) {
-            res.json(data);
-          } else {
-            res.status(404).json({ error: 'booking not found' });
-          }
+      if (data) {
+        res.json(data);
+      } else {
+        res.status(404).json({ error: 'booking not found' });
+      }
     })
     .catch((err) => {
       res.status(500).send({
