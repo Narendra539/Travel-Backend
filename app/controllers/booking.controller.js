@@ -1,11 +1,11 @@
 const db = require("../models");
 const Booking = db.booking;
 const Op = db.Sequelize.Op;
-
+const BookingDetails = db.bookingDetails;
 // Create and Save a new booking
 exports.create = (req, res) => {
   // Validate request
-    if (req.body.user_id === undefined) {
+  if (req.body.user_id === undefined) {
     const error = new Error("user_id cannot be empty for booking!");
     error.statusCode = 400;
     throw error;
@@ -20,15 +20,47 @@ exports.create = (req, res) => {
     userId: req.body.user_id,
     itenararyId: req.body.itenarary_id,
   };
+
   // Save booking in the database
   Booking.create(booking)
-    .then((data) => {
-      res.send(data);
+    .then((bookingData) => {
+      // Create an array to store multiple user data
+      const users = [];
+
+      // Iterate through the users in the request body
+      for (const user of req.body.users) {
+        // Create user object with bookingId as foreign key
+        const userObj = {
+          firstName: user.first_name,
+          lastName: user.last_name,
+          mobile: user.mobile,
+          bookingId: bookingData.id, // Assign the booking ID to the user
+        };
+
+        // Add the user object to the users array
+        users.push(userObj);
+      }
+
+      // Save multiple users in the database
+      User.bulkCreate(users)
+        .then((userData) => {
+          // Return the booking data and associated users data
+          res.send({
+            booking: bookingData,
+            users: userData,
+          });
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: "Error occurred while creating users for the booking.",
+            error: err.message,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the booking.",
+        message: "Some error occurred while creating the booking.",
+        error: err.message || "Some error occurred while creating the booking.",
       });
     });
 };
@@ -44,18 +76,20 @@ exports.findAll = (req, res) => {
       }
     : null;
 
-//   Booking.findAll({ where: condition, order: [["name", "ASC"]] })
-    Booking.findAll({ where: condition })
+  Booking.findAll({ 
+    where: condition,
+    include: [{ model: BookingDetails, attributes: ['firstName', 'lastName', 'mobile'] }] 
+  })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving bookings.",
+        message: err.message || "Some error occurred while retrieving bookings.",
       });
     });
 };
+
 
 // Find a single booking with an id
 exports.findOne = (req, res) => {

@@ -1,7 +1,9 @@
 const db = require("../models");
 const Day = db.day;
 const Op = db.Sequelize.Op;
-
+const Hotel = db.hotel;
+const Place = db.place;
+const Flight = db.flight;
 // Create and Save a new day
 exports.create = (req, res) => {
   // Validate request
@@ -181,3 +183,21 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
+
+exports.getAllDaysInDetail = async (req,res) => {
+  const { itenararyId, dayId } = req.params;
+  try {
+    const day = await Day.findOne({
+      where: { id: dayId, ItineraryId: itenararyId },
+      include: [Flight, Hotel, Place],
+    });
+
+    if (day) {
+      res.status(200).json(day);
+    } else {
+      res.status(404).json({ error: 'Day not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
