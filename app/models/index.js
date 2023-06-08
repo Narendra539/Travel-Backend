@@ -32,28 +32,15 @@ db.itenarary.hasMany(
   { as: "day", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
-// foreign key for place
-db.day.hasMany(
-  db.place,
-  { as: "place", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-
+db.day.hasMany(db.place, { onDelete: 'CASCADE' });
 db.place.belongsTo(db.day);
 
-// foreign key for hotel
-db.day.hasMany(
-  db.hotel,
-  { as: "hotel", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+db.day.hasMany(db.flight, { onDelete: 'CASCADE' });
+db.flight.belongsTo(db.day);
+
+db.day.hasMany(db.hotel, { onDelete: 'CASCADE' });
 db.hotel.belongsTo(db.day);
 
-
-// foreign key for flight
-db.day.hasMany(
-  db.flight,
-  { as: "flight", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.flight.belongsTo(db.day);
 
 
 // foreign key for Itenarary
