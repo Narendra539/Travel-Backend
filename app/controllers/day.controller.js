@@ -195,9 +195,9 @@ exports.getAllDaysInDetail = async (req,res) => {
     if (day) {
       res.status(200).json(day);
     } else {
-      res.status(404).json({ error: 'Day not found' });
+      res.status(404).json({ message: 'Day not found', error: error });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error || 'Internal server error' });
   }
 }
