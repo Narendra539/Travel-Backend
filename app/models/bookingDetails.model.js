@@ -17,14 +17,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      bookingId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'booking',
-          key: 'id',
-        },
-      },
     });
   
     return bookingDetails;
