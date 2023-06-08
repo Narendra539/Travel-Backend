@@ -29,67 +29,56 @@ db.bookingDetails = require("./bookingDetails.model.js")(sequelize, Sequelize);
 // foreign key for day
 db.itenarary.hasMany(
   db.day,
-  { as: "day" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "day", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
-
 
 // foreign key for place
 db.day.hasMany(
   db.place,
-  { as: "place" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "place", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for hotel
 db.day.hasMany(
   db.hotel,
-  { as: "hotel" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "hotel", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for flight
 db.day.hasMany(
   db.flight,
-  { as: "flight" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "flight", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
+
 // foreign key for Itenarary
 db.category.hasMany(
   db.itenarary,
-  { as: "itenarary" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "itenarary", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for booking
 db.user.hasMany(
   db.booking,
-  { as: "booking" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "booking", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 db.itenarary.hasMany(
   db.booking,
-  { as: "booking" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "booking", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for session
 db.user.hasMany(
   db.session,
-  { as: "session" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "session", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 db.session.belongsTo(
   db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+  { as: "user", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
-//foreign key for bookingDetails
+// foreign key for bookingDetails
 db.booking.hasMany(
   db.bookingDetails,
-  { as: "bookingDetails" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-)
-
+  { as: "bookingDetails", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+);
 module.exports = db;
