@@ -116,7 +116,7 @@ exports.findByUserId = (req, res) => {
   ? { userId: id }: null;
   Booking.findAll({ 
     where: condition,
-    include: [{ model: BookingDetails, attributes: ['firstName', 'lastName', 'mobile'] }] 
+    include: [{ model: BookingDetails, as:"bookingDetails", attributes: ['firstName', 'lastName', 'mobile'] }] 
   })
     .then((data) => {
       if (data) {
