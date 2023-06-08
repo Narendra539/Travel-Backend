@@ -42,7 +42,7 @@ exports.create = (req, res) => {
       }
 
       // Save multiple users in the database
-      User.bulkCreate(users)
+      BookingDetails.bulkCreate(users)
         .then((userData) => {
           // Return the booking data and associated users data
           res.send({
