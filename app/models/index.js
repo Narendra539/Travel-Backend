@@ -85,4 +85,11 @@ db.session.belongsTo(
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
+//foreign key for bookingDetails
+db.booking.hasMany(
+  db.bookingDetails,
+  { as: "bookingDetails" },
+  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
+)
+
 module.exports = db;
