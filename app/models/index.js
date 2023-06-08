@@ -38,17 +38,23 @@ db.day.hasMany(
   { as: "place", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
+db.place.belongsTo(db.day);
+
 // foreign key for hotel
 db.day.hasMany(
   db.hotel,
   { as: "hotel", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
+db.hotel.belongsTo(db.day);
+
 
 // foreign key for flight
 db.day.hasMany(
   db.flight,
   { as: "flight", foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
+db.flight.belongsTo(db.day);
+
 
 // foreign key for Itenarary
 db.category.hasMany(
