@@ -23,6 +23,7 @@ db.place = require("./place.model.js")(sequelize, Sequelize);
 db.itenarary = require("./itenarary.model.js")(sequelize, Sequelize);
 db.hotel = require("./hotel.model.js")(sequelize, Sequelize);
 db.flight = require("./flight.model.js")(sequelize, Sequelize);
+db.bookingDetails = require("./bookingDetails.model.js")(sequelize, Sequelize);
 
 
 // foreign key for day
@@ -34,21 +35,21 @@ db.itenarary.hasMany(
 
 
 // foreign key for place
-db.itenarary.hasMany(
+db.day.hasMany(
   db.place,
   { as: "place" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for hotel
-db.itenarary.hasMany(
+db.day.hasMany(
   db.hotel,
   { as: "hotel" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for flight
-db.itenarary.hasMany(
+db.day.hasMany(
   db.flight,
   { as: "flight" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
