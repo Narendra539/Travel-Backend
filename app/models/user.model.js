@@ -20,6 +20,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BLOB,
       allowNull: false,
     },
+    isAdmin:{
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      default: 0
+    }
   });
 
   return User;
