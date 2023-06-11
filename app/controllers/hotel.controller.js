@@ -25,6 +25,10 @@ exports.create = (req, res) => {
     const error = new Error("image_url cannot be empty for hotel!");
     error.statusCode = 400;
     throw error;
+  } else if (req.body.description === undefined) {
+    const error = new Error("description cannot be empty for hotel!");
+    error.statusCode = 400;
+    throw error;
   }
 
   // Create a hotel
@@ -36,7 +40,8 @@ exports.create = (req, res) => {
     checkout_date: req.body.checkout_date,
     image_url: req.body.image_url,
     itenararyId: req.body.itenarary_id,
-    rating: req.body.rating
+    rating: req.body.rating,
+    description: req.body.description,
   };
   // Save hotel in the database
   Hotel.create(hotel)
