@@ -39,7 +39,7 @@ exports.create = (req, res) => {
     depature_time: req.body.depature_time,
     arrival_place: req.body.arrival_place,
     depature_place: req.body.depature_place,
-    itenararyId: req.body.itenarary_id
+    dayId: req.body.dayId
   };
   // Save flight in the database
   Flight.create(flight)

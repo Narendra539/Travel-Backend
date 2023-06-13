@@ -30,7 +30,7 @@ exports.create = (req, res) => {
     rating: req.body.rating,
     image_url: req.body.image_url,
     location: req.body.location,
-    itenararyId: req.body.itenarary_id,
+    dayId: req.body.dayId,
     visited_by: req.body.visited_by
   };
   // Save place in the database
