@@ -39,7 +39,7 @@ exports.create = (req, res) => {
     checkin_date: req.body.checkin_date,
     checkout_date: req.body.checkout_date,
     image_url: req.body.image_url,
-    itenararyId: req.body.itenarary_id,
+    dayId: req.body.dayId,
     rating: req.body.rating,
     description: req.body.description,
   };
