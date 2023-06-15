@@ -36,7 +36,6 @@ exports.create = (req, res) => {
     image_url: req.body.image_url,
     start_date: req.body.start_date,
     end_date: req.body.end_date,
-    rating: req.body.rating,
     categoryId: req.body.category_id || 1,
     place_from: req.body.from,
     place_to: req.body.to

@@ -27,11 +27,9 @@ exports.create = (req, res) => {
   const place = {
     title: req.body.title,
     description: req.body.description,
-    rating: req.body.rating,
     image_url: req.body.image_url,
     location: req.body.location,
     dayId: req.body.dayId,
-    visited_by: req.body.visited_by
   };
   // Save place in the database
   Place.create(place)
@@ -180,7 +178,7 @@ exports.deleteAll = (req, res) => {
 
 exports.getMostVisitedPlaces = (req, res) => {
   Place.findAll({
-    order: [['visited_by', 'DESC']],
+    order: [['id', 'ASC']],
   })
     .then((data) => {
       res.send(data);

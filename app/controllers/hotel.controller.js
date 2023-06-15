@@ -35,12 +35,10 @@ exports.create = (req, res) => {
   const hotel = {
     name: req.body.name,
     location: req.body.location,
-    rating: req.body.rating,
     checkin_date: req.body.checkin_date,
     checkout_date: req.body.checkout_date,
     image_url: req.body.image_url,
     dayId: req.body.dayId,
-    rating: req.body.rating,
     description: req.body.description,
   };
   // Save hotel in the database
@@ -190,7 +188,7 @@ exports.deleteAll = (req, res) => {
 exports.getTopRatedHotels = (req, res) => {
   Hotel.findAll({
     limit: 5,
-    order: [['rating', 'DESC']],
+    order: [['id', 'ASC']],
   })
     .then((data) => {
       res.send(data);

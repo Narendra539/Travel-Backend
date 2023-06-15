@@ -21,10 +21,6 @@ module.exports =  (sequelize, Sequelize) => {
           type: Sequelize.DATE,
           allowNull: false,
         },
-        rating: {
-          type: Sequelize.FLOAT,
-          allowNull: true,
-        },
         image_url: {
           type: Sequelize.STRING,
           allowNull: false,

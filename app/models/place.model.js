@@ -17,19 +17,9 @@ module.exports =  (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    rating:{
-      type: Sequelize.INTEGER,
-      allowNull: true,
-      default: 0,
-    },
     image_url: {
       type: Sequelize.STRING,
       allowNull: false,
-    },
-    visited_by:{
-      type: Sequelize.INTEGER,
-      allowNull: true,
-      default: 0,
     },
   },
   {
