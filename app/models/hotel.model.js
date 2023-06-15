@@ -26,10 +26,6 @@ module.exports =  (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    rating: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     description: {
       type: Sequelize.STRING,
       allowNull: false,
